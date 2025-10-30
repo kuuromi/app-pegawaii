@@ -1,50 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Form Input Pegawai</title>
-</head>
-<body>
-    <h1 class="mb-4">Form Pegawai</h1>
-    <form action="{{ route('employees.store') }}" method="POST">
-        @csrf
-        <table>
-            <tr>
-                <td><label for="nama_lengkap">Nama Lengkap:</label></td>
-                <td><input type="text" id="nama_lengkap" name="nama_lengkap"></td>
-            </tr>
-            <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="email" id="email" name="email"></td>
-            </tr>
-            <tr>
-                <td><label for="nomor_telepon">Nomor Telepon:</label></td>
-                <td><input type="text" id="nomor_telepon" name="nomor_telepon"></td>
-            </tr>
-                <tr>
-                <td><label for="tanggal_lahir">Tanggal Lahir:</label></td>
-                <td><input type="date" id="tanggal_lahir" name="tanggal_lahir"></td>
-            </tr>
-            <tr>
-                <td><label for="alamat">Alamat:</label></td>
-                <td><textarea id="alamat" name="alamat"></textarea></td>
-            </tr>
-            <tr>
-                <td><label for="tanggal_masuk">Tanggal Masuk:</label></td>
-                <td><input type="date" id="tanggal_masuk" name="tanggal_masuk"></td>
-            </tr>
-            <tr>
-                <td><label for="status">Status:</label></td>
-                <td>
-                    <select id="status" name="status">
-                        <option value="aktif">Aktif</option>
-                        <option value="nonaktif">Nonaktif</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:right;">
-                    <button type="submit">Simpan</button>
-            </td>
-        </tr>
-    </table>
-</form>
+@extends('master')
+@section('title', 'Input Pegawai')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="form-wrapper">
+                <div class="table-title">
+                    <h2 class="text-uppercase" style="color: var(--app-text);"><b>Input Data Pegawai</b></h2>
+                </div>
+                <form action="{{ route('employees.store') }}" method="POST">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                        <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="{{ old('nama_lengkap') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+                        <input type="text" name="nomor_telepon" id="nomor_telepon" class="form-control" value="{{ old('nomor_telepon') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="{{ old('tanggal_lahir') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea name="alamat" id="alamat" class="form-control" required>{{ old('alamat') }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
+                        <input type="date" name="tanggal_masuk" id="tanggal_masuk" class="form-control" value="{{ old('tanggal_masuk', date('Y-m-d')) }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select name="status" id="status" class="form-select" required>
+                            <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                        </select>
+                    </div>
+                    
+                    <a href="{{ route('employees.index') }}" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn float-end text-white" style="background-color: var(--app-purple);">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

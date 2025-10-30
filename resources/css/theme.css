@@ -1,0 +1,58 @@
+/* Tema Lilac */
+:root {
+    --primary-color: #8a6fff; /* Lilac */
+    --secondary-color: #e0b3ff; /* Warna lebih muda untuk tombol, dll */
+    --btn-hover-color: #9d7cff; /* Efek hover untuk tombol */
+}
+
+/* Menyesuaikan warna tombol dasar di Bootstrap */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-hover-color);
+    border-color: var(--btn-hover-color);
+}
+
+/* Menyesuaikan warna latar belakang untuk card dan kontainer */
+.card {
+    background-color: var(--secondary-color);
+}
+
+.container {
+    background-color: #f4f0fb;
+}
+
+/* Menyesuaikan warna header tabel */
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Menyesuaikan warna baris tabel */
+table.table-bordered th,
+table.table-bordered td {
+    border-color: #d6b3ff;
+}
+
+/* Menyesuaikan link */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--btn-hover-color);
+}
+
+/* Menyesuaikan tombol Kembali */
+.btn-secondary {
+    background-color: #b3a0f3;
+    border-color: #b3a0f3;
+}
+
+.btn-secondary:hover {
+    background-color: #9d7cff;
+    border-color: #9d7cff;
+}

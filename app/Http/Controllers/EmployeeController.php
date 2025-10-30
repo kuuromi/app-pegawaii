@@ -31,17 +31,23 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $request->merge([
+            'status' => strtolower(trim($request->input('status')))
+        ]);
+
+        $validated = $request->validate([
             'nama_lengkap'  => 'required|string|max:255',
             'email'         => 'required|email|max:255',
             'nomor_telepon' => 'required|string|max:20',
             'tanggal_lahir' => 'required|date',
             'alamat'        => 'required|string|max:255',
             'tanggal_masuk' => 'required|date',
-            'status'        => 'required|string|max:50',
+            'status'        => 'required|in:aktif,tidak aktif', 
         ]);
-        Employee::create($request->all());
-        return redirect()->route('employees.index');
+
+        Employee::create($validated);
+        
+        return redirect()->route('employees.index')->with('success', 'Data karyawan berhasil ditambahkan.');
     }
     
     /**
@@ -65,29 +71,29 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'nama_lengkap'  => 'required|string|max:255',
-            'email'         => 'required|email|max:255',
-            'nomor_telepon' => 'required|string|max:20',
-            'tanggal_lahir' => 'required|date',
-            'alamat'        => 'required|string|max:255',
-            'tanggal_masuk' => 'required|date',
-            'status'        => 'required|string|max:50'
-        ]);
-        $employee = Employee::findOrFail($id);
-        $employee->update($request->only([
-            'nama_lengkap',
-            'emial',
-            'nomor_telepon',
-            'tanggal_lahir',
-            'alamat',
-            'tanggal_masuk',
-            'status',
-        ]));
-        return redirect()->route('employees.index');
-    }
+    // Di EmployeeController.php
+
+public function update(Request $request, string $id)
+{
+    $request->merge([
+        'status' => strtolower(trim($request->input('status')))
+    ]);
+
+    $validated = $request->validate([
+        'nama_lengkap'  => 'required|string|max:255',
+        'email'         => 'required|email|max:255',
+        'nomor_telepon' => 'required|string|max:20',
+        'tanggal_lahir' => 'required|date',
+        'alamat'        => 'required|string|max:255',
+        'tanggal_masuk' => 'required|date',
+        'status'        => 'required|in:aktif,tidak aktif',
+    ]);
+    
+    $employee = Employee::findOrFail($id);
+    $employee->update($validated);
+
+    return redirect()->route('employees.index')->with('success', 'Data pegawai berhasil diperbarui.');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -96,6 +102,6 @@ class EmployeeController extends Controller
     {
         $employee = Employee::find($id);
         $employee->delete();
-        return redirect()->route('employees.index');
+        return redirect()->route('employees.index')->with('success', 'Data karyawan berhasil dihapus.');
     }
 }
