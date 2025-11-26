@@ -1,7 +1,5 @@
 @extends('master')
-
 @section('title', 'Detail Absensi')
-
 @section('content')
 <div class="container">
     <div class="row">

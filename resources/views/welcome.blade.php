@@ -8,10 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
-        /* Warna Ungu yang Mirip dengan Desain */
         :root {
-            --app-purple: #70589E; /* Warna Navbar */
-            --app-text: #70589E; /* Warna Teks Welcome */
+            --app-purple: #70589E;
+            --app-text: #70589E;
         }
         
         .navbar-custom {
@@ -20,7 +19,7 @@
 
         .navbar-custom .nav-link,
         .navbar-custom .navbar-brand {
-            color: white !important; /* Teks Navigasi Putih */
+            color: white !important;
             font-weight: 600;
             padding-left: 1rem;
             padding-right: 1rem;
@@ -29,25 +28,24 @@
         }
 
         .navbar-custom .nav-link:hover {
-            opacity: 1; /* Efek hover */
+            opacity: 1;
         }
 
         .welcome-container {
-            min-height: calc(100vh - 56px); /* Tinggi layar penuh dikurangi tinggi navbar */
+            min-height: calc(100vh - 56px);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: #f8f8f8; /* Latar belakang terang */
+            background-color: #f8f8f8;
         }
 
         .welcome-text {
             color: var(--app-text);
-            font-size: 3.5rem; /* Ukuran teks besar */
+            font-size: 3.5rem;
             font-weight: bold;
         }
 
-        /* Hapus margin default body */
         body {
             margin: 0;
             padding: 0;
@@ -69,6 +67,7 @@
                     <li class="nav-item mx-2"><a class="nav-link" href="{{ route('positions.index') }}">POSITION</a></li>
                     <li class="nav-item mx-2"><a class="nav-link" href="{{ route('attendance.index') }}">ATTENDANCE</a></li>
                     <li class="nav-item mx-2"><a class="nav-link" href="{{ route('salaries.index') }}">SALARY</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link" href="{{ route('projects.index') }}">PROJECT</a></li>
                 </ul>
             </div>
         </div>

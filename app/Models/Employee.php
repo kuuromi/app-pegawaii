@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Department;
+use App\Models\Departemen;
 use App\Models\Position;
 use App\Models\Attendance;
 
@@ -19,10 +19,16 @@ class Employee extends Model
         'alamat',
         'tanggal_masuk',
         'status',
+        
     ];
 
-    public function department() {
-    return $this->belongsTo(Department::class, 'departemen_id');
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'karyawan_id');
+    }
+
+    public function departemen() {
+    return $this->belongsTo(Departemen::class, 'departemen_id');
     }
 
     public function position() {

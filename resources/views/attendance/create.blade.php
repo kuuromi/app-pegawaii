@@ -11,29 +11,38 @@
                 
                 <form action="{{ route('attendance.store') }}" method="POST">
                     @csrf
+                    
                     <div class="mb-3">
-                        <label for="karyawan_id" class="form-label">ID Pegawai:</label>
-                        <input type="number" class="form-control" id="karyawan_id" name="karyawan_id" required>
+                        <label for="karyawan_id" class="form-label">Nama Pegawai</label>
+                        <select name="karyawan_id" id="karyawan_id" class="form-select" required>
+                            <option value="">-- Pilih Pegawai --</option>
+                            @foreach($employees as $employee)
+                                <option value="{{ $employee->id }}" {{ old('karyawan_id') == $employee->id ? 'selected' : '' }}>
+                                    {{ $employee->nama_lengkap }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal:</label>
-                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="waktu_masuk" class="form-label">Waktu Masuk Kerja:</label>
-                        <input type="time" class="form-control" id="waktu_masuk" name="waktu_masuk" required>
+                        <input type="time" class="form-control" id="waktu_masuk" name="waktu_masuk" value="{{ old('waktu_masuk') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="waktu_keluar" class="form-label">Waktu Pulang Kerja:</label>
-                        <input type="time" class="form-control" id="waktu_keluar" name="waktu_keluar">
+                        <input type="time" class="form-control" id="waktu_keluar" name="waktu_keluar" value="{{ old('waktu_keluar') }}">
                     </div>
                     <div class="mb-3">
                         <label for="status_absensi" class="form-label">Status Absensi:</label>
                         <select class="form-select" id="status_absensi" name="status_absensi" required>
-                            <option value="hadir">Hadir</option>
-                            <option value="izin">Izin</option>
-                            <option value="sakit">Sakit</option>
-                            <option value="alpha">Alpha</option>
+                            <option value="hadir" {{ old('status_absensi') == 'hadir' ? 'selected' : '' }}>Hadir</option>
+                            <option value="izin" {{ old('status_absensi') == 'izin' ? 'selected' : '' }}>Izin</option>
+                            <option value="sakit" {{ old('status_absensi') == 'sakit' ? 'selected' : '' }}>Sakit</option>
+                            <option value="alpha" {{ old('status_absensi') == 'alpha' ? 'selected' : '' }}>Alpha</option>
                         </select>
                     </div>
                     <a href="{{ route('attendance.index') }}" class="btn btn-secondary">Batal</a>

@@ -19,6 +19,35 @@
                         <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
                     </div>
+                    
+                    {{-- START PERBAIKAN: TAMBAH DROPDOWN DEPARTEMEN --}}
+                    <div class="mb-3">
+                        <label for="departemen_id" class="form-label">Departemen</label>
+                        <select name="departemen_id" id="departemen_id" class="form-select" required>
+                            <option value="">-- Pilih Departemen --</option>
+                            @foreach($departemen as $item)
+                                <option value="{{ $item->id }}" {{ old('departemen_id') == $item->id ? 'selected' : '' }}>
+                                    {{ $item->nama_departemen }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- END PERBAIKAN --}}
+                    
+                    {{-- START PERBAIKAN: TAMBAH DROPDOWN POSISI --}}
+                    <div class="mb-3">
+                        <label for="positions_id" class="form-label">Jabatan/Posisi</label>
+                        <select name="positions_id" id="positions_id" class="form-select" required>
+                            <option value="">-- Pilih Jabatan --</option>
+                            @foreach($positions as $item)
+                                <option value="{{ $item->id }}" {{ old('positions_id') == $item->id ? 'selected' : '' }}>
+                                    {{ $item->nama_jabatan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- END PERBAIKAN --}}
+
                     <div class="mb-3">
                         <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
                         <input type="text" name="nomor_telepon" id="nomor_telepon" class="form-control" value="{{ old('nomor_telepon') }}" required>

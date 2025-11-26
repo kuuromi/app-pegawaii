@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Departemen;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -23,7 +25,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create');
+        $departemen = Departemen::all();
+        $positions = Position::all();
+        
+        return view('employees.create', compact('departemen', 'positions')); 
     }
 
     /**
@@ -42,7 +47,9 @@ class EmployeeController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat'        => 'required|string|max:255',
             'tanggal_masuk' => 'required|date',
-            'status'        => 'required|in:aktif,tidak aktif', 
+            'status'        => 'required|in:aktif,tidak aktif',
+            'departemen_id' => 'required|exists:departemen,id', 
+            'positions_id'  => 'required|exists:positions,id',
         ]);
 
         Employee::create($validated);
@@ -65,7 +72,9 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $employee = Employee::find($id);
-        return view('employees.edit', compact('employee'));
+        $departemen = Departemen::all();
+        $positions = Position::all();
+        return view('employees.edit', compact('employee', 'departemen', 'positions'));
     }
 
     /**
@@ -87,6 +96,8 @@ public function update(Request $request, string $id)
         'alamat'        => 'required|string|max:255',
         'tanggal_masuk' => 'required|date',
         'status'        => 'required|in:aktif,tidak aktif',
+        'departemen_id' => 'required|exists:departemen,id', 
+        'positions_id'  => 'required|exists:positions,id',
     ]);
     
     $employee = Employee::findOrFail($id);

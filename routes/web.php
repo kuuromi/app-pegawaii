@@ -5,6 +5,7 @@ use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\PositionsController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\SalariesController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 // route untuk default
@@ -24,5 +25,8 @@ Route::resource('positions',PositionsController::class);
 // route resource untuk attendance
 Route::resource('attendance',AttendanceController::class);
 
-// route resource untuk attendance
+// route resource untuk salary
 Route::resource('salaries',SalariesController::class);
+
+// route resource untuk project
+Route::resource('projects',ProjectController::class);

@@ -19,6 +19,6 @@ class Salaries extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'karyawan_id'); // Relasi ke tabel employees
+        return $this->belongsTo(Employee::class, 'karyawan_id');
     }
 }

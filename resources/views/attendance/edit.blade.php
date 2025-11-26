@@ -13,8 +13,16 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="karyawan_id" class="form-label">ID Pegawai</label>
-                            <input type="number" class="form-control" name="karyawan_id" value="{{ old('karyawan_id', $attendance->karyawan_id) }}" required>
+                            <label for="karyawan_id" class="form-label">Nama Pegawai</label>
+                            <select class="form-select" name="karyawan_id" id="karyawan_id" required>
+                                <option value="">-- Pilih Pegawai --</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}" 
+                                        {{ old('karyawan_id', $attendance->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                        {{ $employee->nama_lengkap }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>

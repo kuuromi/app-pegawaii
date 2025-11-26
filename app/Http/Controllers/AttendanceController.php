@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -22,27 +23,27 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return view('attendance.create');
+        $employees = Employee::orderBy('nama_lengkap')->get();
+        return view('attendance.create', compact('employees'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'karyawan_id'       => 'required|integer',
-            'tanggal'           => 'required|date',
-            'waktu_masuk'       => 'required|date_format:H:i',
-            // Waktu keluar dijadikan nullable, karena karyawan mungkin belum pulang saat check-in
-            'waktu_keluar'      => 'nullable|date_format:H:i', 
-            'status_absensi'    => 'required|in:hadir,izin,sakit,alpha',
+            'karyawan_id'    => 'required|exists:employees,id',
+            'tanggal'        => 'required',
+            'waktu_masuk'    => 'required',
+            'waktu_keluar'   => 'nullable',
+            'status_absensi' => 'required|in:hadir,izin,sakit,alpha',
         ]);
-        
-        // Menggunakan data yang sudah divalidasi untuk membuat record baru (lebih aman)
+
         Attendance::create($validated);
-        
-        return redirect()->route('attendance.index')->with('success', 'Data absensi berhasil ditambahkan.');
+
+        return redirect()->route('attendance.index')->with('success', 'Data absensi berhasil disimpan.');
     }
 
 
@@ -51,7 +52,7 @@ class AttendanceController extends Controller
      */
     public function show(string $id)
     {
-        $attendance = Attendance::findOrFail($id); // Menggunakan findOrFail untuk penanganan 404 yang lebih baik
+        $attendance = Attendance::findOrFail($id);
         return view('attendance.show', compact('attendance'));
     }
 
@@ -60,8 +61,10 @@ class AttendanceController extends Controller
      */
     public function edit(string $id)
     {
-        $attendance = Attendance::findOrFail($id); // Menggunakan findOrFail
-        return view('attendance.edit', compact('attendance'));
+        $attendance = Attendance::findOrFail($id);
+        $employees = Employee::orderBy('nama_lengkap')->get();
+        
+        return view('attendance.edit', compact('attendance', 'employees'));
     }
 
     /**
@@ -70,18 +73,15 @@ class AttendanceController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'karyawan_id'       => 'required|integer',
-            'tanggal'           => 'required|date',
-            'waktu_masuk'       => 'required|date_format:H:i',
-            // Waktu keluar harus tetap nullable saat update
-            'waktu_keluar'      => 'nullable|date_format:H:i', 
+            'karyawan_id'       => 'required|exists:employees,id', 
+            'tanggal'           => 'required',
+            'waktu_masuk'       => 'required',
+            'waktu_keluar'      => 'nullable', 
             'status_absensi'    => 'required|in:hadir,izin,sakit,alpha',
         ]);
 
-        $attendance = Attendance::findOrFail($id);
 
-        // Menggunakan Mass Assignment dengan data yang sudah divalidasi
-        // Ini lebih bersih dan aman daripada mengupdate secara manual atau menggunakan $request->all()
+        $attendance = Attendance::findOrFail($id);
         $attendance->update($validated); 
 
         return redirect()->route('attendance.index')->with('success', 'Data absensi berhasil diperbarui.');

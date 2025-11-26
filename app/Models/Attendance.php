@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Employee;
 
 class Attendance extends Model
 {
+    protected $table = 'attendance';
+    
     protected $fillable = [
         'karyawan_id',
         'tanggal',
@@ -14,5 +17,11 @@ class Attendance extends Model
         'status_absensi',
     ];
     
-    public $timestamps = false;
+    /**
+     * Relasi Many-to-One
+     */
+    public function employee() 
+    {
+        return $this->belongsTo(Employee::class, 'karyawan_id');
+    }
 }

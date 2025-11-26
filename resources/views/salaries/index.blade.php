@@ -1,6 +1,5 @@
 @extends('master')
 @section('title', 'Daftar Gaji Pegawai')
-
 @section('content')
 <div class="container">
     <div class="table-responsive">
@@ -56,7 +55,6 @@
             </table>
 
             <div class="clearfix">
-                <!-- <div class="hint-text float-start">Menampilkan {{ $salaries->firstItem() }} hingga {{ $salaries->lastItem() }} dari {{ $salaries->total() }} entri</div> -->
                 <div class="float-end">
                     {{ $salaries->links() }}
                 </div>

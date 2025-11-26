@@ -18,7 +18,7 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">ID Pegawai</th>
+                        <th style="width: 200px;">Nama Pegawai</th>
                         <th>Tanggal Absensi</th>
                         <th>Waktu Masuk</th>
                         <th>Waktu Pulang</th>
@@ -29,7 +29,7 @@
                 <tbody>
                     @forelse($attendance as $item)
                     <tr>
-                        <td>{{ $item->karyawan_id }}</td>
+                        <td>{{ $item->employee->nama_lengkap ?? 'Data Pegawai Hilang' }}</td>
                         <td>{{ $item->tanggal }}</td>
                         <td>{{ $item->waktu_masuk }}</td>
                         <td>{{ $item->waktu_keluar }}</td>
